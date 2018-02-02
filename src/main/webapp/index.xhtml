@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head><title>Registeration Page</title></h:head>
+<h:body>
+    <h:form enctype="multipart/form-data">
+
+    </h:form>
+
+    <h:form enctype="multipart/form-data">
+        <p:panel id="panel" header="Cars">
+            <p:messages id="msgs" />
+
+            <h:panelGrid columns="3" cellpadding="5">
+                <p:outputLabel for="carModel" value="CarModel:" />
+                <p:inputText id="carModel" value="#{carMB.model}" required="true" label="CarModel"/>
+                <p:message for="carModel" display="icon" />
+
+                <p:outputLabel for="manufacturer" value="Manufacturer:" />
+                <p:inputText id="manufacturer" value="#{carMB.manufacturer}" label="Manufacturer" required="true"/>
+                <p:message for="manufacturer" id="msgLastname" display="icon" />
+
+                <p:outputLabel for="yearModel" value="Year Model:" />
+                <p:inputNumber id="yearModel"  label="Year Model" value="#{carMB.yearModel}" required="true"/>
+                <p:message for="yearModel" display="icon" />
+
+                <p:growl id="messages" showDetail="true" />
+
+                <p:fileUpload value="#{carMB.file}" mode="simple" skinSimple="true"/>
+
+            </h:panelGrid>
+
+            <p:commandButton label="addCar" value="Save" actionListener="#{carMB.addCar}" ajax="false" icon="ui-icon-check" />
+
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
