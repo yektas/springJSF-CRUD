@@ -4,6 +4,7 @@ package com.trnet.managedBean;
 import com.trnet.spring.model.Car;
 import com.trnet.spring.model.Logo;
 import com.trnet.spring.service.ICarService;
+import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,12 +13,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "carMB")
 @SessionScoped
-public class CarMB {
+public class CarMB implements Serializable{
 
 
     @ManagedProperty(value = "#{carService}")
@@ -30,6 +32,10 @@ public class CarMB {
     private Car selectedCar;
 
     private List<Car> carList;
+
+    private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = Logger.getLogger(CarMB.class);
 
     @PostConstruct
     public void init() {
@@ -61,7 +67,16 @@ public class CarMB {
         car.setYearModel(getYearModel());
         car.setLogo(getSelectedLogo().getPath());
         car.setManufacturer(getSelectedLogo().getName());
+
         carService.addCar(car);
+
+        // logs debug
+        if (logger.isDebugEnabled()) {
+            logger.debug("CarMB.process()");
+        }
+
+        // logs exception
+        logger.error("This is Error message for CarMB", new Exception("CarMB Logs"));
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", getModel() + " is added!"));
     }
