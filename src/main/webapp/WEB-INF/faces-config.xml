@@ -6,7 +6,17 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0">
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <locale-config>
+            <default-locale>tr</default-locale>
+            <supported-locale>en</supported-locale>
+            <supported-locale>tr</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>languages.Messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
     </application>
+
 
     <converter>
         <converter-id>entityConverter</converter-id>

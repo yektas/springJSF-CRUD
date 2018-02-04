@@ -2,7 +2,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<h:head><title>Car List</title></h:head>
+<f:view locale="#{userMB.locale}">
+    <h:head><title>#{msg.cars}</title></h:head>
 <h:body>
     <h:form id="form">
         <p:growl id="growl" showDetail="true" sticky="true"/>
@@ -13,7 +14,7 @@
                     rowsPerPageTemplate="6,12,16">
 
             <f:facet name="header">
-                Cars
+                #{msg.cars}
             </f:facet>
 
             <p:panel header="#{car.model}" style="text-align:center">
@@ -21,7 +22,8 @@
                     <p:graphicImage library="images" name="logos/#{car.logo}" width="150px"/>
                     <h:outputText value="#{car.yearModel}"/>
 
-                    <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                    <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()"
+                                   title="#{msg.viewDetail}">
                         <h:outputText styleClass="fa fa-search" style="margin:0 auto; color: #cc0000"/>
                         <f:setPropertyActionListener value="#{car}" target="#{carMB.selectedCar}"/>
                     </p:commandLink>
@@ -30,7 +32,7 @@
 
         </p:dataGrid>
 
-        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade"
+        <p:dialog header="#{msg.carInfo}" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade"
                   resizable="false">
             <p:outputPanel id="carDetail" style="text-align:center;">
                 <p:panelGrid columns="2" rendered="#{not empty carMB.selectedCar}" columnClasses="label,value">
@@ -41,16 +43,16 @@
                     <h:outputText value="Id:"/>
                     <h:outputText value="#{carMB.selectedCar.id}"/>
 
-                    <h:outputText value="Model Year"/>
+                    <h:outputText value="#{msg.yearModel}"/>
                     <p:inputText value="#{carMB.selectedCar.yearModel}"/>
 
-                    <h:outputText value="Manufacturer"/>
+                    <h:outputText value="#{msg.manufacturer}"/>
                     <p:inputText value="#{carMB.selectedCar.manufacturer}"/>
 
-                    <f:facet name="footer">
-                        <p:commandButton id="updateBtn" value="Update" actionListener="#{carMB.updateCar}"
+                    <f:facet name="footer" style="text-align:center">
+                        <p:commandButton id="updateBtn" value="#{msg.update}" actionListener="#{carMB.updateCar}"
                                          update=":form"/>
-                        <p:commandButton id="deleteBtn" value="Delete" actionListener="#{carMB.deleteCar}"
+                        <p:commandButton id="deleteBtn" value="#{msg.delete}" actionListener="#{carMB.deleteCar}"
                                          update=":form"/>
 
                     </f:facet>
@@ -60,8 +62,9 @@
         </p:dialog>
     </h:form>
     <h:form>
-        <p:commandButton value="Add new car" action="index.xhtml" ajax="false" icon="fa fa-plus-square"/>
+        <p:commandButton value="#{msg.addNewCar}" action="index.xhtml" ajax="false" icon="fa fa-plus-square"/>
     </h:form>
 
 </h:body>
+</f:view>
 </html>

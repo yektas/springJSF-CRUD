@@ -2,51 +2,78 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<h:head><title>Welcome</title></h:head>
-<h:body>
-    <h:form enctype="multipart/form-data">
+<f:view locale="#{userMB.locale}">
+    <h:head>
+        <title>#{msg.welcome}</title>
+        <style>
+            .english {
+                width: 40px;
+                height: 40px;
+                background-image: url("#{resource['images/language/english.png']}") !important;
+            }
 
-    </h:form>
+            .turkish {
+                width: 40px;
+                height: 40px;
+                background-image: url("#{resource['images/language/turkish.png']}") !important;
+            }
+        </style>
+    </h:head>
 
-    <h:form>
-        <p:growl id="growl" showDetail="true" sticky="true"/>
+    <h:body>
+        <p:layoutUnit position="center">
+            <p:graphicImage library="images" name="logos/TR_logo.png"/>
+        </p:layoutUnit>
 
-        <p:panel id="panel" header="Add Car">
-            <h:panelGrid columns="3" cellpadding="5">
-                <p:outputLabel for="carModel" value="Car Model:"/>
-                <p:inputText id="carModel" value="#{carMB.model}" required="true" label="CarModel"/>
-                <p:message for="carModel" display="icon" />
-
-                <p:outputLabel for="yearModel" value="Model Year:"/>
-                <p:inputNumber id="yearModel" value="#{carMB.yearModel}" required="true"/>
-                <p:message for="yearModel" display="icon" />
-
-                <h:outputLabel value="Manufacturer:"/>
-                <p:selectOneMenu id="manufacturer" value="#{carMB.selectedLogo}" converter="entityConverter"
-                                 height="250" effect="fade" var="l">
-                    <f:selectItem itemLabel="Select One" itemValue="#{l}"/>
-                    <f:selectItems value="#{carMB.logos}" var="carLogo" itemLabel="#{carLogo.name}"
-                                   itemValue="#{carLogo}"/>
-
-                    <p:column>
-                        <p:graphicImage library="images" name="logos/#{l.path}" width="58" height="50"/>
-                    </p:column>
-
-                    <p:column>
-                        #{l.name}
-                    </p:column>
-                </p:selectOneMenu>
-
-            </h:panelGrid>
-
-            <p:commandButton label="addCar" value="Save" actionListener="#{carMB.addCar}" update="growl" ajax="false"
-                             icon="fa fa-plus-square"/>
-
+        <p:panel header="#{msg.selectLanguage}">
+            <h:form style="text-align: center">
+                <p:commandButton styleClass="english" ajax="false" actionListener="#{userMB.changeLanguage('en')}"
+                                 value=""/>
+                <p:commandButton styleClass="turkish" ajax="false" actionListener="#{userMB.changeLanguage('tr')}"
+                                 value=""/>
+            </h:form>
         </p:panel>
-    </h:form>
-    <h:form>
-        <p:commandButton value="List added cars" actionListener="#{carMB.retrieveCarList}" ajax="false"
-                         icon="fa fa-list"/>
-    </h:form>
-</h:body>
+
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+
+            <p:panel id="panel" header="#{msg.addCar}">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="carModel" value="#{msg.carModel}:"/>
+                    <p:inputText id="carModel" value="#{carMB.model}" required="true"/>
+                    <p:message for="carModel" display="icon"/>
+
+                    <p:outputLabel for="yearModel" value="#{msg.yearModel}:"/>
+                    <p:inputNumber id="yearModel" value="#{carMB.yearModel}" required="true"/>
+                    <p:message for="yearModel" display="icon"/>
+
+                    <h:outputLabel value="#{msg.manufacturer}:"/>
+                    <p:selectOneMenu id="manufacturer" value="#{carMB.selectedLogo}" converter="entityConverter"
+                                     height="250" effect="fade" var="l">
+                        <f:selectItem itemLabel="#{msg.selectOne}" itemValue="#{l}"/>
+                        <f:selectItems value="#{carMB.logos}" var="carLogo" itemLabel="#{carLogo.name}"
+                                       itemValue="#{carLogo}"/>
+
+                        <p:column>
+                            <p:graphicImage library="images" name="logos/#{l.path}" width="58" height="50"/>
+                        </p:column>
+
+                        <p:column>
+                            #{l.name}
+                        </p:column>
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+
+                <p:commandButton value="#{msg.save}" actionListener="#{carMB.addCar}" update="growl" ajax="false"
+                                 icon="fa fa-plus-square"/>
+
+            </p:panel>
+        </h:form>
+        <h:form>
+            <p:commandButton value="#{msg.listCars}" actionListener="#{carMB.retrieveCarList}" ajax="false"
+                             icon="fa fa-list"/>
+        </h:form>
+    </h:body>
+</f:view>
 </html>
