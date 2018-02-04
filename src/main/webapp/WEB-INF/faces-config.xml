@@ -8,4 +8,9 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
 
+    <converter>
+        <converter-id>entityConverter</converter-id>
+        <converter-class>com.trnet.utils.EntityConverter</converter-class>
+    </converter>
+
 </faces-config>

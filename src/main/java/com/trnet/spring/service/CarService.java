@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("studentService")
+@Service("carService")
 public class CarService implements ICarService {
 
     @Autowired

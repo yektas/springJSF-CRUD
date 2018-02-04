@@ -11,8 +11,8 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "logo")
+    private String logo;
 
     @Column(name = "model")
     private String model;
@@ -23,12 +23,20 @@ public class Car {
     @Column(name = "yearModel")
     private int yearModel;
 
-    public String getImage() {
-        return image;
+    public int getId() {
+        return id;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public String getModel() {

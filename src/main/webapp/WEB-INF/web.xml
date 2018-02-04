@@ -24,8 +24,12 @@
   <!-- Change to "Production" when you are ready to deploy -->
   <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>afterdark</param-value>
+      <param-value>blitzer</param-value>
   </context-param>
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
   <!-- Welcome page -->
   <welcome-file-list>

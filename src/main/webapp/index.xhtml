@@ -2,38 +2,51 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<h:head><title>Registeration Page</title></h:head>
+<h:head><title>Welcome</title></h:head>
 <h:body>
     <h:form enctype="multipart/form-data">
 
     </h:form>
 
-    <h:form enctype="multipart/form-data">
-        <p:panel id="panel" header="Cars">
-            <p:messages id="msgs" />
+    <h:form>
+        <p:growl id="growl" showDetail="true" sticky="true"/>
 
+        <p:panel id="panel" header="Add Car">
             <h:panelGrid columns="3" cellpadding="5">
-                <p:outputLabel for="carModel" value="CarModel:" />
+                <p:outputLabel for="carModel" value="Car Model:"/>
                 <p:inputText id="carModel" value="#{carMB.model}" required="true" label="CarModel"/>
                 <p:message for="carModel" display="icon" />
 
-                <p:outputLabel for="manufacturer" value="Manufacturer:" />
-                <p:inputText id="manufacturer" value="#{carMB.manufacturer}" label="Manufacturer" required="true"/>
-                <p:message for="manufacturer" id="msgLastname" display="icon" />
-
-                <p:outputLabel for="yearModel" value="Year Model:" />
-                <p:inputNumber id="yearModel"  label="Year Model" value="#{carMB.yearModel}" required="true"/>
+                <p:outputLabel for="yearModel" value="Model Year:"/>
+                <p:inputNumber id="yearModel" value="#{carMB.yearModel}" required="true"/>
                 <p:message for="yearModel" display="icon" />
 
-                <p:growl id="messages" showDetail="true" />
+                <h:outputLabel value="Manufacturer:"/>
+                <p:selectOneMenu id="manufacturer" value="#{carMB.selectedLogo}" converter="entityConverter"
+                                 height="250" effect="fade" var="l">
+                    <f:selectItem itemLabel="Select One" itemValue="#{l}"/>
+                    <f:selectItems value="#{carMB.logos}" var="carLogo" itemLabel="#{carLogo.name}"
+                                   itemValue="#{carLogo}"/>
 
-                <p:fileUpload value="#{carMB.file}" mode="simple" skinSimple="true"/>
+                    <p:column>
+                        <p:graphicImage library="images" name="logos/#{l.path}" width="58" height="50"/>
+                    </p:column>
+
+                    <p:column>
+                        #{l.name}
+                    </p:column>
+                </p:selectOneMenu>
 
             </h:panelGrid>
 
-            <p:commandButton label="addCar" value="Save" actionListener="#{carMB.addCar}" ajax="false" icon="ui-icon-check" />
+            <p:commandButton label="addCar" value="Save" actionListener="#{carMB.addCar}" update="growl" ajax="false"
+                             icon="fa fa-plus-square"/>
 
         </p:panel>
+    </h:form>
+    <h:form>
+        <p:commandButton value="List added cars" actionListener="#{carMB.retrieveCarList}" ajax="false"
+                         icon="fa fa-list"/>
     </h:form>
 </h:body>
 </html>
