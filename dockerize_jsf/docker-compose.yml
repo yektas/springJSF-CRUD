@@ -1,0 +1,15 @@
+version: '2'
+services:
+  helloworld:
+    build: ./project/
+    command: /apache-maven-3.5.2/bin/mvn wildfly:deploy 
+    links:
+      - wildfly
+    depends_on:
+      - wildfly
+  wildfly:
+    command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0 -bmanagement=0.0.0.0
+    build: .
+    ports:
+      - "9990:9990"
+      - "8080:8080"
