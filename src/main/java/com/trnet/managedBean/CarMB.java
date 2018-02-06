@@ -71,12 +71,12 @@ public class CarMB implements Serializable{
         carService.addCar(car);
 
         // logs debug
-        if (logger.isDebugEnabled()) {
-            logger.debug("CarMB.process()");
-        }
+        //if (logger.isDebugEnabled()) {
+        //    logger.debug("CarMB.process()");
+        //}
 
         // logs exception
-        logger.error("This is Error message for CarMB", new Exception("CarMB Logs"));
+        //logger.error("This is Error message for CarMB", new Exception("CarMB Logs"));
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", getModel() + " is added!"));
     }
