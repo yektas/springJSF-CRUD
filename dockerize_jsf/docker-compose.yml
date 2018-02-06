@@ -21,8 +21,6 @@ services:
       - database
       
   database:
-    image: postgres
+    build: ./postgres
     restart: always
-    environment:
-      POSTGRES_PASSWORD: 7592
 
