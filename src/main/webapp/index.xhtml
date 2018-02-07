@@ -48,20 +48,7 @@
                     <p:message for="yearModel" display="icon"/>
 
                     <h:outputLabel value="#{msg.manufacturer}:"/>
-                    <p:selectOneMenu id="manufacturer" value="#{carMB.selectedLogo}" converter="entityConverter"
-                                     height="250" effect="fade" var="l">
-                        <f:selectItem itemLabel="#{msg.selectOne}" itemValue="#{l}"/>
-                        <f:selectItems value="#{carMB.logos}" var="carLogo" itemLabel="#{carLogo.name}"
-                                       itemValue="#{carLogo}"/>
 
-                        <p:column>
-                            <p:graphicImage library="images" name="logos/#{l.path}" width="58" height="50"/>
-                        </p:column>
-
-                        <p:column>
-                            #{l.name}
-                        </p:column>
-                    </p:selectOneMenu>
 
                 </h:panelGrid>
 

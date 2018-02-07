@@ -4,7 +4,6 @@ package com.trnet.managedBean;
 import com.trnet.spring.model.Car;
 import com.trnet.spring.model.Logo;
 import com.trnet.spring.service.ICarService;
-import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -28,14 +27,11 @@ public class CarMB implements Serializable{
     private String model;
     private int yearModel;
     private List<Logo> logos;
-    private Logo selectedLogo;
+    //private Logo selectedLogo;
     private Car selectedCar;
 
     private List<Car> carList;
 
-    private static final long serialVersionUID = 1L;
-
-    private static final Logger logger = Logger.getLogger(CarMB.class);
 
     @PostConstruct
     public void init() {
@@ -65,18 +61,14 @@ public class CarMB implements Serializable{
         Car car = new Car();
         car.setModel(getModel());
         car.setYearModel(getYearModel());
-        car.setLogo(getSelectedLogo().getPath());
-        car.setManufacturer(getSelectedLogo().getName());
+        //car.setLogo(getSelectedLogo().getPath());
+        //car.setManufacturer(getSelectedLogo().getName());
+        car.setLogo("Toyota.jpg");
+        car.setManufacturer("Toyota");
 
         carService.addCar(car);
 
-        // logs debug
-        //if (logger.isDebugEnabled()) {
-        //    logger.debug("CarMB.process()");
-        //}
 
-        // logs exception
-        //logger.error("This is Error message for CarMB", new Exception("CarMB Logs"));
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", getModel() + " is added!"));
     }
@@ -90,7 +82,7 @@ public class CarMB implements Serializable{
         }
     }
 
-    public void updateCar() {
+    /*public void updateCar() {
         Car updatedCar = new Car();
         updatedCar.setId(getSelectedCar().getId());
         updatedCar.setManufacturer(getSelectedCar().getManufacturer());
@@ -100,8 +92,9 @@ public class CarMB implements Serializable{
         carService.updateCar(updatedCar);
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Car with id" + updatedCar.getId() + "is updated!"));
-    }
+    }*/
 
+    /*
     public void deleteCar() {
         int carId = getSelectedCar().getId();
         carService.removeCar(carId);
@@ -111,7 +104,7 @@ public class CarMB implements Serializable{
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Car with id " + carId + " is deleted!"));
 
-    }
+    }*/
 
     public Car getSelectedCar() {
         return selectedCar;
@@ -121,13 +114,14 @@ public class CarMB implements Serializable{
         this.selectedCar = selectedCar;
     }
 
+    /*
     public Logo getSelectedLogo() {
         return selectedLogo;
     }
 
     public void setSelectedLogo(Logo selectedLogo) {
         this.selectedLogo = selectedLogo;
-    }
+    }*/
 
     public List<Logo> getLogos() {
         return logos;

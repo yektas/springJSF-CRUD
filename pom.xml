@@ -151,7 +151,7 @@
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>1.1.0.Alpha5</version>
         <configuration>
-            <jbossHome>/usr/local/wildfly-8.0.0.Final</jbossHome>
+          <jbossHome>/usr/local/wildfly-10.1.0.Final</jbossHome>
             <hostname>wildfly</hostname>
             <username>admin</username>
             <password>devops#abcder123</password>
