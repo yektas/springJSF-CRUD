@@ -62,21 +62,20 @@ public class CarMB implements Serializable{
     }
 
     public void addCar() {
+
         Car car = new Car();
-        car.setModel(getModel());
-        car.setYearModel(getYearModel());
-        car.setLogo(getSelectedLogo().getPath());
-        car.setManufacturer(getSelectedLogo().getName());
 
-        carService.addCar(car);
+        try{
+            car.setModel(getModel());
+            car.setYearModel(getYearModel());
+            car.setLogo(getSelectedLogo().getPath());
+            car.setManufacturer(getSelectedLogo().getName());
+            carService.addCar(car);
 
-        // logs debug
-        //if (logger.isDebugEnabled()) {
-        //    logger.debug("CarMB.process()");
-        //}
-
-        // logs exception
-        //logger.error("This is Error message for CarMB", new Exception("CarMB Logs"));
+            logger.warn(car.getModel() + ", is added successfully.");
+        }catch(Exception ex){
+            logger.error("Sorry, something wrong!", ex);
+        }
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", getModel() + " is added!"));
     }
@@ -92,22 +91,39 @@ public class CarMB implements Serializable{
 
     public void updateCar() {
         Car updatedCar = new Car();
-        updatedCar.setId(getSelectedCar().getId());
-        updatedCar.setManufacturer(getSelectedCar().getManufacturer());
-        updatedCar.setLogo(getSelectedCar().getLogo());
-        updatedCar.setModel(getSelectedCar().getModel());
-        updatedCar.setYearModel(getSelectedCar().getYearModel());
-        carService.updateCar(updatedCar);
+        try{
+            updatedCar.setId(getSelectedCar().getId());
+            updatedCar.setManufacturer(getSelectedCar().getManufacturer());
+            updatedCar.setLogo(getSelectedCar().getLogo());
+            updatedCar.setModel(getSelectedCar().getModel());
+            updatedCar.setYearModel(getSelectedCar().getYearModel());
+            carService.updateCar(updatedCar);
+
+            logger.warn(updatedCar.getModel() + ", is updated.");
+        }catch (Exception ex){
+            logger.error("Sorry, unable to updated, due to : ", ex);
+        }
+
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Car with id" + updatedCar.getId() + "is updated!"));
     }
 
     public void deleteCar() {
-        int carId = getSelectedCar().getId();
-        carService.removeCar(carId);
 
-        //Update car list
-        setCarList(carService.listCars());
+        int carId = getSelectedCar().getId();
+
+        try{
+
+            carService.removeCar(carId);
+
+            //Update car list
+            setCarList(carService.listCars());
+
+            logger.warn(selectedCar.getModel() + ", is deleted.");
+        }catch (Exception ex){
+            logger.error("Sorry, unable to updated, due to : ", ex);
+        }
+
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successful", "Car with id " + carId + " is deleted!"));
 
